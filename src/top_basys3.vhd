@@ -212,7 +212,7 @@ begin
 	
 	with s_D3 select            
 	   w_D3 <= x"F" when '1',
-	           x"0" when others;
+	           x"E" when others;
 	            
 	          
 	seg <= w_seg;            
