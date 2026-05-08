@@ -39,7 +39,33 @@ end controller_fsm;
 
 architecture FSM of controller_fsm is
 
+type sm_state is (clr_display, load_A, load_B, write_display);
+
+signal current_state, next_state: sm_state;
+
 begin
 
+	-- Next State Logic            
+  	next_state <=  sm_state'succ(current_state) when (i_adv = '1' and current_state /= write_display) else
+  	               clr_display when (i_adv = '1') else
+	               current_state;
 
+-- Output logic
+	with current_state select
+	o_cycle <= "0001" when clr_display,
+	           "0010" when load_A,
+	           "0100" when load_B,
+	           "1000" when write_display;
+
+	-- State register ------------
+	state_register : process(i_adv)
+	begin
+        if rising_edge(i_adv) then
+           if i_reset = '1' then
+               current_state <= clr_display;
+           else
+                current_state <= next_state;
+            end if;
+        end if;
+	end process state_register;
 end FSM;
