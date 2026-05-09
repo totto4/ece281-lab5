@@ -59,7 +59,7 @@ begin
                 "0001101" when x"C",
                 "0111101" when x"D",
                 "1001111" when x"E",
-                "0000001" when x"F",
+                "1000111" when x"F",
                 "0000000" when others;
         
     -- Flipped mapping to o_seg_n to match constraints file
