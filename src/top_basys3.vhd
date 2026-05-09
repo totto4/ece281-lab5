@@ -123,6 +123,7 @@ architecture top_basys3_arch of top_basys3 is
     signal w_D3, w_D2, w_D1, w_D0 : std_logic_vector (3 downto 0);
     signal w_data : STD_LOGIC_VECTOR (3 downto 0);
     signal w_seg : std_logic_vector(6 downto 0);
+    signal s_seg : std_logic_vector(6 downto 0);
     signal w_an :  std_logic_vector(3 downto 0);
     
     
@@ -183,7 +184,7 @@ begin
                   
     sevenseg_decoder_inst : sevenseg_decoder 
         port map ( i_Hex => w_data,
-    	           o_seg_n => w_seg);
+    	           o_seg_n => s_seg);
                   
     cycle_process_A: process(w_cycle(1))
         begin
@@ -213,6 +214,9 @@ begin
 	with s_D3 select            
 	   w_D3 <= x"F" when '1',
 	           x"0" when others;
+	           
+	   w_seg <= "0000001" when (s_D3 = '1') and (w_cycle = "1000") and (w_data = x"F") else
+	            s_seg;
 	            
 	          
 	seg <= w_seg;            
