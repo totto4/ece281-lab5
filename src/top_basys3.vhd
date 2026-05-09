@@ -214,8 +214,7 @@ begin
 	   w_D3 <= x"F" when '1',
 	           x"0" when others;
 	            
---	w_D3 <= x"F" when s_D3 = '1';
---	an(3) <= '1' when s_D3 = '0';          
+	          
 	seg <= w_seg;            
     led(3 downto 0) <= w_cycle;
     led(15 downto 12) <= w_flags;
